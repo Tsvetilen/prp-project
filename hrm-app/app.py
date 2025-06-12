@@ -1,16 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pyodbc
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 def get_db_connection():
+    
+    db_host = os.getenv("DB_HOST")
+    db_name = os.getenv("DB_NAME")
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    
     return pyodbc.connect(
         "DRIVER={ODBC Driver 17 for SQL Server};"
-        "SERVER=" + os.getenv("DB_HOST", "fonteynholiday.database.windows.net") + ";"
-        "DATABASE=" + os.getenv("DB_NAME", "hrm") + ";"
-        "UID=" + os.getenv("DB_USER", "FonteynDB") + ";"
-        "PWD=" + os.getenv("DB_PASSWORD", "Fonteyn123") + ";"
+        "SERVER=" + db_host + ";"
+        "DATABASE=" + db_name + ";"
+        "UID=" + db_user + ";"
+        "PWD=" + db_password + ";"
         "Encrypt=yes;TrustServerCertificate=no;"
     )
 
