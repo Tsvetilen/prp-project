@@ -28,7 +28,7 @@ jobs:
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
-          appSourcePath: ${{ github.workspace }}
+          appSourcePath: ${{ github.workspace }}/hrm-app
           dockerfilePath: Dockerfile
           registryUrl: fentaka.azurecr.io
           registryUsername: ${{ secrets.HRMAPP_REGISTRY_USERNAME }}
