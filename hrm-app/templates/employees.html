@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employees - Fonteyn HRM</title>
+    <link rel="stylesheet" href="/static/employess.css">
+</head>
+<body>
+    <header>
+        <h1>Fonteyn HRM</h1>
+    </header>
+    <div class="container">
+        <h1>Add Employee</h1>
+        <form method="POST" action="/employees">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required><br><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="position_ID">Position:</label>
+            <select id="position_ID" name="position_ID" required>
+                <option value="">Select Position</option>
+                {% for pos in positions %}
+                <option value="{{ pos[0] }}">{{ pos[1] }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <label for="department_ID">Department:</label>
+            <select id="department_ID" name="department_ID" required>
+                <option value="">Select Department</option>
+                {% for dept in departments %}
+                <option value="{{ dept[0] }}">{{ dept[1] }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <button type="submit">Add Employee</button>
+        </form>
+
+        <h2>Employee List</h2>
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>Action</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp[0] }}</td>
+                <td>{{ emp[1] }}</td>
+                <td>{{ emp[2] }}</td>
+                <td>{{ emp[3] }}</td>
+                <td>{{ emp[4] }}</td>
+                <td>{{ emp[5] }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_employee', emp_id=emp[0]) }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Delete this employee?');">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>

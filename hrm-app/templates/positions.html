@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Positions - Fonteyn HRM</title>
+    <link rel="stylesheet" href="/static/positions.css">
+</head>
+<body>
+    <header>
+        <h1>Fonteyn HRM</h1>
+    </header>
+    <div class="container">
+        <h1>Add Positions</h1>
+        <form method="POST" action="/positions">
+            <label for="title">Position Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+            <button type="submit">Add Position</button>
+        </form>
+        <h2>Position List</h2>
+        <table>
+            <tr>
+                <th>Position ID</th>
+                <th>Position</th>
+                <th>Action</th>
+            </tr>
+            {% for i in positions %}
+            <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_position', pos_id=i[0]) }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Delete this position?');">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>

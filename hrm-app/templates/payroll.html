@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payroll - Fonteyn HRM</title>
+    <link rel="stylesheet" href="/static/payroll.css">
+</head>
+<body>
+    <header>
+        <h1>Fonteyn HRM</h1>
+    </header>
+    <div class="container">
+        <h1>Payroll</h1>
+        <form method="POST" action="/payroll">
+            <label for="employee_id">Employee:</label>
+            <select id="employee_id" name="employee_id" required>
+                {% for emp in employees %}
+                <option value="{{ emp[0] }}">{{ emp[1] }} {{ emp[2] }}</option>
+                {% endfor %}
+            </select><br><br>
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="salary" required><br><br>
+            <label for="taxes">Taxes:</label>
+            <input type="number" id="taxes" name="taxes" required><br><br>
+            <button type="submit">Add Payroll</button>
+        </form>
+
+        <h2>Payroll List</h2>
+        <table>
+            <tr>
+                <th>Payroll ID</th>
+                <th>Employee ID</th>
+                <th>Salary</th>
+                <th>Taxes</th>
+                <th>Action</th>
+            </tr>
+            {% for payroll in payrolls %}
+            <tr>
+                <td>{{ payroll[0] }}</td>
+                <td>{{ payroll[1] }}</td>
+                <td>{{ payroll[2] }}</td>
+                <td>{{ payroll[3] }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_payroll', payroll_id=payroll[0]) }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Delete this payroll?');">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>
