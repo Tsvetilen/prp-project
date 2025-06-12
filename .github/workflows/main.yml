@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # Required for OIDC authentication (optional with explicit credentials)
+      id-token: write # Required for OIDC (optional but included)
       contents: read # Required for repository access
 
     steps:
@@ -28,7 +28,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          dockerfilePath: Dockerfile # Matches the root location from the screenshot
+          dockerfilePath: Dockerfile
           registryUrl: fentaka.azurecr.io
           registryUsername: ${{ secrets.HRMAPP_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.HRMAPP_REGISTRY_PASSWORD }}
