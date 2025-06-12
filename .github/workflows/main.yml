@@ -9,7 +9,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    # Removed permissions block to disable OIDC
+
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout to the branch
