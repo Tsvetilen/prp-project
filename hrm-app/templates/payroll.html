@@ -9,6 +9,11 @@
         <h1>Fonteyn HRM</h1>
     </header>
     <div class="container">
+        
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
         <h1>Payroll</h1>
         <form method="POST" action="/payroll">
             <label for="employee_id">Employee:</label>
